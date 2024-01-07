@@ -10,8 +10,14 @@ const imageContainer = document.getElementById("image-container");
 
 // Create a new object detection pipeline
 status.textContent = "Loading model...";
-const detector = await pipeline("object-detection", "Xenova/detr-resnet-50");
-status.textContent = "Ready";
+let detector = null;
+
+async function getDetector() {
+  detector = await pipeline("object-detection", "Xenova/detr-resnet-50");
+  status.textContent = "Ready";
+}
+
+getDetector();
 
 fileUpload.addEventListener("change", function (e) {
   const file = e.target.files[0];
